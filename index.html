@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Bhai! 🎂✨ | Memories & Wishes</title>
+  <meta name="description" content="A simple, aesthetic birthday surprise gallery with comedy notes and heartfelt memories for brother." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Calming Ambient Glowing Background Orbs & Canvas -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+  <canvas id="peaceful-canvas"></canvas>
+
+  <!-- Top Minimal Audio Toggle -->
+  <header class="top-nav">
+    <div class="nav-brand">🎂 Happy Birthday, Bhai!</div>
+    <button id="btn-ambient-sound" class="btn-peaceful-audio" aria-label="Toggle calming ambient music">
+      <span class="sound-icon">🎧</span>
+      <span class="sound-label">Calm Music: Off</span>
+    </button>
+  </header>
+
+  <main class="page-wrapper">
+    <!-- OPENING SURPRISE HERO SECTION -->
+    <section class="surprise-hero">
+      <div class="surprise-badge">
+        <span>🎂 Special Birthday Edition</span>
+      </div>
+      <h1 class="surprise-title">Happy Birthday to You! 🎂✨</h1>
+      <p class="surprise-subtitle">
+        To the coolest, funniest, and most amazing brother — here is a little stroll down our 
+        memory lane, full of laughs, chaotic moments, and memories I'll cherish forever.
+      </p>
+      <div class="scroll-indicator">
+        <span>Scroll down</span>
+        <div class="mouse-icon">
+          <div class="wheel"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMORY GALLERY (AS DRAWN IN SKETCH: ALTERNATING RIGHT & LEFT WITH QUOTES) -->
+    <section class="gallery-container">
+
+      <!-- =========================================================
+           ROW 1: QUOTE ON LEFT | IMAGE 1 ON RIGHT
+           ========================================================= -->
+      <div class="memory-row quote-left-img-right scroll-reveal">
+        <!-- Quote (Left) -->
+        <div class="quote-side">
+          <div class="quote-card">
+            <span class="quote-tag">01 / The "Main Character" Syndrome</span>
+            <blockquote class="comedy-quote">
+              "Bro put on $2 sunglasses in a cab and immediately thought Netflix was filming his biographical documentary."
+            </blockquote>
+            <div class="quote-divider"></div>
+            <p class="heartfelt-note">
+              No matter how cool and untouchable you pretend to be in front of everyone, I still remember you crying over the TV remote. You'll always be my favorite bodyguard. 🕶️🤍
+            </p>
+            <div class="card-reactions">
+              <button class="pill-reaction" onclick="spawnReaction('😎', event)">😎 Too Cool</button>
+              <button class="pill-reaction" onclick="spawnReaction('🎬', event)">🎬 Actor</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 1 (Right) -->
+        <div class="image-side">
+          <div class="image-frame" onclick="spawnReaction('✨', event)">
+            <div class="image-wrapper">
+              <img src="assets/images/swag_bro.jpg" alt="Brother wearing sunglasses in car" class="memory-img" loading="lazy" />
+            </div>
+            <div class="image-tagline">
+              <span class="tag-number">#01</span>
+              <span class="tag-title">Paparazzi Proof Pose</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           ROW 2: IMAGE 2 ON LEFT | QUOTE ON RIGHT
+           ========================================================= -->
+      <div class="memory-row img-left-quote-right scroll-reveal">
+        <!-- Image 2 (Left) -->
+        <div class="image-side">
+          <div class="image-frame" onclick="spawnReaction('🎀', event)">
+            <div class="image-wrapper">
+              <img src="assets/images/goofy_filter.jpg" alt="Brother with goofy filter, glasses, buck teeth and bows" class="memory-img" loading="lazy" />
+            </div>
+            <div class="image-tagline">
+              <span class="tag-number">#02</span>
+              <span class="tag-title">True Identity Unlocked</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote (Right) -->
+        <div class="quote-side">
+          <div class="quote-card">
+            <span class="quote-tag">02 / The Real You</span>
+            <blockquote class="comedy-quote">
+              "Scientists spent decades searching for the missing evolutionary link, and I found it right on your Snapchat story."
+            </blockquote>
+            <div class="quote-divider"></div>
+            <p class="heartfelt-note">
+              Blue bows, giant nerdy glasses, and buck teeth — thanks for always being the funniest human being alive. Life would be terribly boring without your chaotic clown energy making me laugh. 🤓🎀
+            </p>
+            <div class="card-reactions">
+              <button class="pill-reaction" onclick="spawnReaction('🎀', event)">🎀 Pretty</button>
+              <button class="pill-reaction" onclick="spawnReaction('🤣', event)">🤣 Clown</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           ROW 3: QUOTE ON LEFT | IMAGE 3 ON RIGHT
+           ========================================================= -->
+      <div class="memory-row quote-left-img-right scroll-reveal">
+        <!-- Quote (Left) -->
+        <div class="quote-side">
+          <div class="quote-card">
+            <span class="quote-tag">03 / The Daily Smackdown</span>
+            <blockquote class="comedy-quote">
+              "WWE refused to broadcast our fights because arguing over the last slice of pizza was deemed too brutal for national television."
+            </blockquote>
+            <div class="quote-divider"></div>
+            <p class="heartfelt-note">
+              We fight 99% of the time over the dumbest things on earth, but for that 1% when it actually matters, there is nobody in this universe I trust more to have my back. 🥊🫂
+            </p>
+            <div class="card-reactions">
+              <button class="pill-reaction" onclick="spawnReaction('🥊', event)">🥊 Champ</button>
+              <button class="pill-reaction" onclick="spawnReaction('🍕', event)">🍕 Pizza Thief</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 3 (Right) -->
+        <div class="image-side">
+          <div class="image-frame" onclick="spawnReaction('🥊', event)">
+            <div class="image-wrapper">
+              <img src="assets/images/sibling_fight.jpg" alt="Brother and sister play fighting and wrestling playfully" class="memory-img" loading="lazy" />
+            </div>
+            <div class="image-tagline">
+              <span class="tag-number">#03</span>
+              <span class="tag-title">5:00 PM Wrestling Match</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           ROW 4: IMAGE 4 ON LEFT | QUOTE ON RIGHT
+           ========================================================= -->
+      <div class="memory-row img-left-quote-right scroll-reveal">
+        <!-- Image 4 (Left) -->
+        <div class="image-side">
+          <div class="image-frame" onclick="spawnReaction('🌲', event)">
+            <div class="image-wrapper">
+              <img src="assets/images/walk_woods.jpg" alt="Walking together along misty forest nature trail" class="memory-img" loading="lazy" />
+            </div>
+            <div class="image-tagline">
+              <span class="tag-number">#04</span>
+              <span class="tag-title">Through Every Mist Together</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote (Right) -->
+        <div class="quote-side">
+          <div class="quote-card">
+            <span class="quote-tag">04 / Beside You Always</span>
+            <blockquote class="comedy-quote">
+              "Walking through the misty forest looking for who asked for your life advice... GPS says '0 signals found, turn back bro!' 🌲"
+            </blockquote>
+            <div class="quote-divider"></div>
+            <p class="heartfelt-note">
+              From our tiny childhood steps to exploring the world side by side, thank you for walking beside me, guiding my steps, and always making sure I never lose my way. 🌲✨
+            </p>
+            <div class="card-reactions">
+              <button class="pill-reaction" onclick="spawnReaction('🌲', event)">🌲 Explorer</button>
+              <button class="pill-reaction" onclick="spawnReaction('🤍', event)">🤍 Forever</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           ROW 5: QUOTE ON LEFT | IMAGE 5 ON RIGHT
+           ========================================================= -->
+      <div class="memory-row quote-left-img-right scroll-reveal">
+        <!-- Quote (Left) -->
+        <div class="quote-side">
+          <div class="quote-card">
+            <span class="quote-tag">05 / Natural Habitat</span>
+            <blockquote class="comedy-quote">
+              "Daily Routine: 12 hours sleeping, 6 hours doomscrolling reels, 5 hours yelling 'WHERE IS MY SHIRT?!', and 1 hour ignoring my texts."
+            </blockquote>
+            <div class="quote-divider"></div>
+            <p class="heartfelt-note">
+              Even on your laziest days wrapped in blankets like a burrito, you bring so much warmth, comfort, and peace to our home. Thank you for just being you. 🛌🤍
+            </p>
+            <div class="card-reactions">
+              <button class="pill-reaction" onclick="spawnReaction('😴', event)">😴 Sloth</button>
+              <button class="pill-reaction" onclick="spawnReaction('📱', event)">📱 Reels King</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 5 (Right) -->
+        <div class="image-side">
+          <div class="image-frame" onclick="spawnReaction('😴', event)">
+            <div class="image-wrapper">
+              <img src="assets/images/lazy_bro.jpg" alt="Brother relaxing in bed with phone" class="memory-img" loading="lazy" />
+            </div>
+            <div class="image-tagline">
+              <span class="tag-number">#05</span>
+              <span class="tag-title">Chief Sloth Officer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- PEACEFUL CLOSING SURPRISE LETTER -->
+    <section class="closing-section">
+      <div class="letter-card">
+        <div class="letter-icon">🎂</div>
+        <h2 class="letter-title">Happy Birthday, Bhai! 🎉</h2>
+        <p class="letter-text">
+          Wishing you the happiest birthday filled with endless laughter, boundless health, great success, 
+          and all the happiness you deserve in life. Thank you for always protecting me, making me laugh, 
+          and being the absolute best brother anyone could ask for.
+        </p>
+        <p class="letter-signoff">
+          Have the most wonderful day! (And don't forget to treat me!) 🎂🤍✨
+        </p>
+        <div class="letter-action">
+          <button class="btn-hug" onclick="sendHug(event)">
+            <span>🎈 Send Birthday Wishes & Hugs 🫂</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MINIMAL CLEAN FOOTER -->
+    <footer class="minimal-footer">
+      <p>Made with love for the best brother on his special day 🎂✨</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
