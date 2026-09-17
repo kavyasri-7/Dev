@@ -534,6 +534,529 @@ body {
 }
 
 /* ==========================================================================
+   INITIAL SURPRISE MODAL OVERLAY (CUTE KITTY & DODGING BUTTON)
+   ========================================================================== */
+body.modal-open {
+  overflow: hidden !important;
+  height: 100vh;
+}
+
+.surprise-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(7, 10, 18, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
+              visibility 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.surprise-modal-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.06);
+}
+
+.surprise-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(145deg, rgba(24, 33, 52, 0.92) 0%, rgba(13, 18, 30, 0.96) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7),
+              0 0 50px rgba(236, 72, 153, 0.15),
+              0 0 80px rgba(59, 130, 246, 0.12);
+  border-radius: 28px;
+  padding: 36px 30px 32px;
+  text-align: center;
+  animation: modalPopIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: visible;
+}
+
+@keyframes modalPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Kitty Showcase & Animations */
+.kitty-showcase {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.kitty-glow-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 114, 182, 0.35) 0%, rgba(251, 191, 36, 0.2) 50%, transparent 70%);
+  filter: blur(14px);
+  z-index: 0;
+  animation: pulseGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1.18); opacity: 1; }
+}
+
+.kitty-avatar-box {
+  position: relative;
+  z-index: 1;
+  width: 170px;
+  height: 170px;
+  margin: 0 auto;
+  border-radius: 28px;
+  padding: 10px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.98) 0%, rgba(254, 242, 242, 0.92) 100%);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35),
+              0 0 35px rgba(244, 114, 182, 0.38);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  transition: transform 0.2s ease;
+}
+
+.kitty-display-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.kitty-display-wrapper.hidden {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.surprise-cat-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  animation: cuteCatBob 2.4s ease-in-out infinite alternate;
+  display: block;
+}
+
+@keyframes cuteCatBob {
+  0% {
+    transform: translateY(0px) scale(1) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.03) rotate(1.5deg);
+  }
+  100% {
+    transform: translateY(0px) scale(1) rotate(-1.5deg);
+  }
+}
+
+.angry-kitty-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 20px;
+  animation: angryPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes angryPop {
+  0% { transform: scale(0.65) rotate(-6deg); opacity: 0.4; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Lively Animations for GIF 3 (Side-eye) and GIF 4 (Angry Stomp) */
+.angry-kitty-img.gif-side-eye {
+  animation: sideEyeWobble 0.75s ease-in-out infinite alternate !important;
+}
+
+@keyframes sideEyeWobble {
+  0% { transform: rotate(-5deg) scale(0.98); }
+  50% { transform: rotate(0deg) scale(1.05); }
+  100% { transform: rotate(6deg) scale(1.02); }
+}
+
+.angry-kitty-img.gif-angry-stomp {
+  animation: angryStompBounce 0.4s ease-in-out infinite alternate !important;
+}
+
+@keyframes angryStompBounce {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-7px) scale(1.06) rotate(-3deg); }
+  100% { transform: translateY(0) scale(1.03) rotate(3deg); }
+}
+
+.angry-badge {
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.6) !important;
+  border-color: rgba(254, 202, 202, 0.8) !important;
+}
+
+.kitty-avatar-box.angry-shake {
+  animation: boxAngryShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes boxAngryShake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(-8px, 3px) rotate(-5deg); }
+  40% { transform: translate(8px, -3px) rotate(5deg); }
+  60% { transform: translate(-5px, 2px) rotate(-3deg); }
+  80% { transform: translate(5px, -2px) rotate(3deg); }
+}
+
+.hello-kitty-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Character Body Happy Rhythmic Sway */
+.kitty-character-body {
+  transform-origin: 105px 210px;
+  animation: kittyBodySway 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes kittyBodySway {
+  0% {
+    transform: translateY(0px) rotate(-2.5deg);
+  }
+  100% {
+    transform: translateY(-5px) rotate(2.5deg);
+  }
+}
+
+/* Head Tilt & Bob */
+.kitty-head-group {
+  transform-origin: 105px 145px;
+  animation: kittyHeadBob 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes kittyHeadBob {
+  0% {
+    transform: rotate(-3.5deg) translateY(0px);
+  }
+  100% {
+    transform: rotate(3.5deg) translateY(-2px);
+  }
+}
+
+/* Fast Fluid Waving Hand (Real Excited Video Wave Motion) */
+.kitty-waving-arm-video {
+  transform-origin: 144px 138px;
+  animation: videoHandWave 0.52s cubic-bezier(0.42, 0, 0.58, 1) infinite alternate;
+}
+
+@keyframes videoHandWave {
+  0% {
+    transform: rotate(-24deg) scale(0.96);
+  }
+  45% {
+    transform: rotate(8deg) scale(1.08);
+  }
+  100% {
+    transform: rotate(36deg) scale(1.02);
+  }
+}
+
+/* Winking Eye Pulse & Wink Motion */
+.kitty-eye-wink {
+  animation: winkBlink 2.4s ease-in-out infinite;
+}
+
+@keyframes winkBlink {
+  0%, 82%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  88% {
+    transform: scale(1.25) translateY(-1px);
+    opacity: 0.9;
+  }
+}
+
+/* Pink Bow Gentle Jiggle */
+.kitty-bow {
+  transform-origin: 144px 47px;
+  animation: bowBounce 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes bowBounce {
+  0% {
+    transform: rotate(-5deg) scale(0.96);
+  }
+  100% {
+    transform: rotate(6deg) scale(1.05);
+  }
+}
+
+.kitty-wave-badge {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  background: linear-gradient(135deg, #f43f5e, #ec4899);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.4);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.3px;
+  animation: badgeBounce 1.8s ease-in-out infinite;
+}
+
+@keyframes badgeBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.05); }
+}
+
+.kitty-sparkles {
+  position: absolute;
+  top: -12px;
+  right: -15px;
+  font-size: 1.2rem;
+  animation: sparkleRotate 4s linear infinite;
+}
+
+@keyframes sparkleRotate {
+  0% { transform: rotate(0deg) scale(0.9); }
+  50% { transform: rotate(180deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(0.9); }
+}
+
+/* Modal Typography */
+.surprise-badge-pill {
+  display: inline-block;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  color: #fcd34d;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 50px;
+  margin-bottom: 12px;
+  letter-spacing: 0.4px;
+}
+
+.surprise-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff 30%, #fde68a 80%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.surprise-modal-subtitle {
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+/* Playful Dodge Notification Alert */
+.no-dodge-alert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(244, 114, 182, 0.2), rgba(251, 191, 36, 0.15));
+  border: 1.5px solid rgba(244, 114, 182, 0.4);
+  color: #fff0f3;
+  padding: 11px 18px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 auto 20px;
+  max-width: 95%;
+  opacity: 0;
+  transform: translateY(-8px) scale(0.96);
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 6px 20px rgba(244, 114, 182, 0.25);
+}
+
+.no-dodge-alert.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: shakeWarning 0.45s ease-in-out;
+}
+
+@keyframes shakeWarning {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.dodge-icon {
+  font-size: 1.2rem;
+}
+
+/* Buttons Group */
+.surprise-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+  position: relative;
+  min-height: 60px;
+}
+
+/* Base Shared Pleasant Lightish Pastel Styling for Both Buttons */
+.btn-surprise-yes,
+.btn-surprise-no {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 140px;
+  height: 52px;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 45%, #fef3c7 100%);
+  color: #4a0e2e;
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  border-radius: 50px;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px -4px rgba(244, 114, 182, 0.35),
+              0 0 22px rgba(254, 240, 138, 0.35);
+  text-shadow: none;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease,
+              background 0.25s ease,
+              border-color 0.25s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.btn-surprise-yes {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-surprise-no {
+  position: relative;
+  z-index: 100;
+}
+
+.btn-surprise-yes:hover,
+.btn-surprise-no:hover {
+  background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 45%, #fed7aa 100%);
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 12px 28px -4px rgba(244, 114, 182, 0.45),
+              0 0 28px rgba(254, 215, 170, 0.45);
+  border-color: #ffffff;
+}
+
+.btn-surprise-yes:active,
+.btn-surprise-no:active {
+  transform: scale(0.96);
+}
+
+/* When the No button is in fixed dodge mode */
+.btn-surprise-no.dodging {
+  position: fixed !important;
+  z-index: 999999 !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(254, 215, 170, 0.5);
+  animation: noWiggle 0.3s ease;
+}
+
+@keyframes noWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+/* ==========================================================================
+   INTERACTIVE CAKES & HEARTS CLICK BLAST PARTICLES
+   ========================================================================== */
+.blast-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  user-select: none;
+  will-change: transform, opacity;
+  animation: cakeHeartBurst var(--dur, 0.9s) cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+}
+
+@keyframes cakeHeartBurst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(0, 0) scale(0.2) rotate(0deg);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1.3) rotate(var(--rot));
+  }
+  75% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) translate(var(--tx), calc(var(--ty) - 25px)) scale(1.1) rotate(calc(var(--rot) * 1.3));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--tx), calc(var(--ty) - 70px)) scale(0.6) rotate(calc(var(--rot) * 1.6));
+  }
+}
+
+.blast-ripple {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(244, 114, 182, 0.85);
+  background: radial-gradient(circle, rgba(244, 114, 182, 0.4) 0%, rgba(251, 191, 36, 0.2) 60%, transparent 80%);
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  animation: rippleExpand 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes rippleExpand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4.8);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
    RESPONSIVE DESIGN (MOBILE & TABLETS)
    ========================================================================== */
 @media (max-width: 850px) {
@@ -567,4 +1090,22 @@ body {
   .surprise-hero {
     padding: 50px 10px 30px;
   }
+
+  .surprise-modal-card {
+    padding: 28px 20px 24px;
+  }
+
+  .surprise-modal-title {
+    font-size: 1.45rem;
+  }
+
+  .surprise-modal-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .kitty-avatar-box {
+    width: 125px;
+    height: 125px;
+  }
 }
+
