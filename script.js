@@ -353,21 +353,55 @@ function initSurpriseModal() {
 
   let lastDodgeTime = 0;
 
+  function spawnPoofCloud(x, y) {
+    const poof = document.createElement('div');
+    poof.className = 'poof-cloud';
+    poof.textContent = '💨';
+    poof.style.left = `${x}px`;
+    poof.style.top = `${y}px`;
+    document.body.appendChild(poof);
+    setTimeout(() => {
+      if (poof && poof.parentNode) poof.parentNode.removeChild(poof);
+    }, 550);
+  }
+
   function dodgeButton(e) {
     if (e) {
-      e.preventDefault();
+      if (e.cancelable) e.preventDefault();
       e.stopPropagation();
     }
 
-    // Debounce to prevent simultaneous pointerenter + mouseenter from skipping GIFs
+    // Short debounce for rapid duplicate synthetic touch/pointer events
     const now = Date.now();
-    if (now - lastDodgeTime < 380) {
+    if (now - lastDodgeTime < 130) {
       return;
     }
     lastDodgeTime = now;
 
     dodgeCount++;
     audio.playBoing();
+
+    // Extract exact touch or cursor position
+    let clientX = null;
+    let clientY = null;
+    if (e) {
+      if (e.touches && e.touches.length > 0) {
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+      } else if (e.changedTouches && e.changedTouches.length > 0) {
+        clientX = e.changedTouches[0].clientX;
+        clientY = e.changedTouches[0].clientY;
+      } else if (typeof e.clientX === 'number' && e.clientX > 0) {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      }
+    }
+
+    // Previous button location for poof cloud
+    const oldRect = btnNo.getBoundingClientRect();
+    const poofX = oldRect.left + (oldRect.width || 100) / 2;
+    const poofY = oldRect.top + (oldRect.height || 45) / 2;
+    spawnPoofCloud(poofX, poofY);
 
     // Select the angry GIF for this attempt strictly one by one:
     // Dodge 1 -> GIF 1 (Frying Pan)
@@ -427,40 +461,62 @@ function initSurpriseModal() {
 
     // Calculate dynamic safe coordinates for No button
     btnNo.classList.add('dodging');
-    const btnRect = btnNo.getBoundingClientRect();
-    const btnW = btnRect.width || 100;
-    const btnH = btnRect.height || 45;
+    const btnW = oldRect.width || 120;
+    const btnH = oldRect.height || 48;
+    const pad = 16;
+    const winW = window.innerWidth;
+    const winH = window.innerHeight;
+    const minX = pad;
+    const maxX = Math.max(pad, winW - btnW - pad);
+    const minY = pad + 30;
+    const maxY = Math.max(minY, winH - btnH - pad - 20);
 
-    const pad = 24;
-    const maxW = window.innerWidth - btnW - pad;
-    const maxH = window.innerHeight - btnH - pad;
-
-    let targetX = pad + Math.random() * (maxW - pad);
-    let targetY = pad + Math.random() * (maxH - pad);
-
-    // Ensure it doesn't land directly on cursor/finger
-    if (e && e.clientX && e.clientY) {
-      const dist = Math.hypot(targetX - e.clientX, targetY - e.clientY);
-      if (dist < 140) {
-        targetX = (targetX + window.innerWidth / 2) % (maxW - pad) + pad;
-        targetY = (targetY + window.innerHeight / 2) % (maxH - pad) + pad;
+    let targetX, targetY;
+    if (clientX !== null && clientY !== null) {
+      // Teleport to the opposite vertical half of the screen
+      if (clientY > winH / 2) {
+        targetY = minY + Math.random() * (winH * 0.35);
+      } else {
+        targetY = Math.max(minY, winH * 0.55 + Math.random() * (maxY - winH * 0.55));
       }
+
+      // Teleport to the opposite horizontal half of the screen
+      if (clientX > winW / 2) {
+        targetX = minX + Math.random() * (winW * 0.35);
+      } else {
+        targetX = Math.max(minX, winW * 0.45 + Math.random() * (maxX - winW * 0.45));
+      }
+    } else {
+      targetX = minX + Math.random() * (maxX - minX);
+      targetY = minY + Math.random() * (maxY - minY);
     }
 
-    btnNo.style.left = `${Math.max(pad, Math.min(targetX, maxW))}px`;
-    btnNo.style.top = `${Math.max(pad, Math.min(targetY, maxH))}px`;
+    // Clamp coordinates safely within screen view
+    targetX = Math.max(minX, Math.min(targetX, maxX));
+    targetY = Math.max(minY, Math.min(targetY, maxY));
+
+    // Restart the materialize animation
+    btnNo.style.animation = 'none';
+    void btnNo.offsetWidth;
+    btnNo.style.animation = '';
+
+    btnNo.style.left = `${targetX}px`;
+    btnNo.style.top = `${targetY}px`;
 
     // Spawn playful dodging reaction emojis matching the angry cat
     const cheekyEmojis = [gifData.emoji, '🍳', '💢', '🐾', '😹', '💨', '😜'];
     const chosenEmoji = cheekyEmojis[Math.floor(Math.random() * cheekyEmojis.length)];
-    const touchX = e && e.clientX ? e.clientX : targetX;
-    const touchY = e && e.clientY ? e.clientY : targetY;
-    spawnReaction(chosenEmoji, { clientX: touchX, clientY: touchY });
+    spawnReaction(chosenEmoji, { clientX: poofX, clientY: poofY });
   }
 
-  // Pointer events handle both mouse hover/enter and mobile touch without double-firing
+  // Handle all touch and mouse interactions seamlessly on both mobile & desktop
+  ['touchstart', 'pointerdown', 'mousedown', 'click'].forEach((evt) => {
+    btnNo.addEventListener(evt, (e) => {
+      dodgeButton(e);
+    }, { passive: false });
+  });
+
   btnNo.addEventListener('pointerenter', dodgeButton);
-  btnNo.addEventListener('pointerdown', dodgeButton);
 
   if (btnYes) {
     btnYes.addEventListener('click', acceptSurprise);
