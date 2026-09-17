@@ -461,6 +461,10 @@ function initSurpriseModal() {
   // Pointer events handle both mouse hover/enter and mobile touch without double-firing
   btnNo.addEventListener('pointerenter', dodgeButton);
   btnNo.addEventListener('pointerdown', dodgeButton);
+
+  if (btnYes) {
+    btnYes.addEventListener('click', acceptSurprise);
+  }
 }
 
 function acceptSurprise(event) {
@@ -551,8 +555,13 @@ function initGlobalClickBlast() {
   });
 }
 
+// --- Expose functions globally for inline HTML onclick handlers ---
+window.spawnReaction = spawnReaction;
+window.sendHug = sendHug;
+window.acceptSurprise = acceptSurprise;
+
 // --- Initialization ---
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   initPeacefulCanvas();
   initScrollReveal();
   initSurpriseModal();
@@ -564,6 +573,13 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.toggleAmbientMusic(audioBtn);
     });
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+
 
 
