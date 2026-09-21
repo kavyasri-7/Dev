@@ -810,65 +810,7 @@ function completeSurpriseAndScroll() {
   }
 }
 
-// --- Global Cakes & Hearts Click Blast System ---
-function spawnCakeHeartBlast(x, y) {
-  audio.playPop();
 
-  // Expanding luminous wave ring
-  const ripple = document.createElement('div');
-  ripple.className = 'blast-ripple';
-  ripple.style.left = `${x}px`;
-  ripple.style.top = `${y}px`;
-  document.body.appendChild(ripple);
-  setTimeout(() => {
-    if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
-  }, 700);
-
-  // Emojis for blast: cakes, hearts, cupcakes, sparkles, balloons
-  const blastIcons = ['🎂', '🍰', '🧁', '💖', '💕', '❤️', '✨', '🎈', '🤍', '🥳', '🌸', '🎂', '💖'];
-  const particleCount = 8 + Math.floor(Math.random() * 5); // 8-12 particles
-
-  for (let i = 0; i < particleCount; i++) {
-    const p = document.createElement('div');
-    p.className = 'blast-particle';
-    const icon = blastIcons[Math.floor(Math.random() * blastIcons.length)];
-    p.textContent = icon;
-
-    // Angle and explosion radius
-    const angle = (i / particleCount) * (Math.PI * 2) + (Math.random() - 0.5) * 0.5;
-    const distance = 45 + Math.random() * 85;
-    const tx = Math.cos(angle) * distance;
-    const ty = Math.sin(angle) * distance;
-    const rot = `${(Math.random() - 0.5) * 90}deg`;
-    const dur = `${0.75 + Math.random() * 0.35}s`;
-    const fontSize = `${1.3 + Math.random() * 0.9}rem`;
-
-    p.style.setProperty('--tx', `${tx}px`);
-    p.style.setProperty('--ty', `${ty}px`);
-    p.style.setProperty('--rot', rot);
-    p.style.setProperty('--dur', dur);
-    p.style.fontSize = fontSize;
-    p.style.left = `${x}px`;
-    p.style.top = `${y}px`;
-
-    document.body.appendChild(p);
-    setTimeout(() => {
-      if (p.parentNode) p.parentNode.removeChild(p);
-    }, 1200);
-  }
-}
-
-function initGlobalClickBlast() {
-  window.addEventListener('pointerdown', (e) => {
-    if (!isAppUnlocked) return;
-
-    // Ignore clicks on modal before unlock
-    const modal = document.getElementById('surprise-modal');
-    if (modal && !modal.classList.contains('hidden')) return;
-
-    spawnCakeHeartBlast(e.clientX, e.clientY);
-  });
-}
 
 // --- Expose functions globally for inline HTML onclick handlers ---
 window.spawnReaction = spawnReaction;
@@ -879,26 +821,12 @@ window.dodgeBrainYesButton = dodgeBrainYesButton;
 window.transitionToBrainPunchline = transitionToBrainPunchline;
 window.completeSurpriseAndScroll = completeSurpriseAndScroll;
 
-// --- Oneko: Interactive Cursor-Chasing Cat ---
+// --- Oneko: Interactive Cursor-Chasing Cat & 3 Kittens ---
 function initOnekoCat() {
   if (document.getElementById("oneko")) return;
 
-  const nekoEl = document.createElement("div");
-  nekoEl.id = "oneko";
-  nekoEl.setAttribute("aria-hidden", "true");
-
-  let nekoPosX = 48;
-  let nekoPosY = 48;
   let mousePosX = window.innerWidth / 2;
   let mousePosY = window.innerHeight / 2;
-
-  let frameCount = 0;
-  let idleTime = 0;
-  let idleAnimation = null;
-  let idleAnimationFrame = 0;
-
-  // Gentle, playful cat speed as requested
-  const nekoSpeed = 8;
 
   const spriteSets = {
     idle: [[-3, -3]],
@@ -963,24 +891,260 @@ function initOnekoCat() {
     ],
   };
 
-  nekoEl.style.width = "32px";
-  nekoEl.style.height = "32px";
-  nekoEl.style.position = "fixed";
-  nekoEl.style.pointerEvents = "none";
-  nekoEl.style.imageRendering = "pixelated";
-  nekoEl.style.left = `${nekoPosX - 16}px`;
-  nekoEl.style.top = `${nekoPosY - 16}px`;
-  nekoEl.style.zIndex = "999990";
-  nekoEl.style.backgroundImage = `url(${onekoGif})`;
+  // Configurations for Momma and 3 playful kittens
+  // Each kitten has a unique resting angle and distance around Momma so they settle scattered in a cuddle puddle, never in a straight line!
+  const catConfigs = [
+    { scale: 1.0, baseSpeed: 8.5, stopDist: 22, restAngle: 0, restDist: 0 },
+    { scale: 0.68, baseSpeed: 8.2, stopDist: 15, restAngle: -0.62 * Math.PI, restDist: 38 }, // Upper-left (~ -111°)
+    { scale: 0.56, baseSpeed: 7.8, stopDist: 15, restAngle: 0.35 * Math.PI, restDist: 44 },  // Lower-right (~ +63°)
+    { scale: 0.46, baseSpeed: 7.4, stopDist: 15, restAngle: 1.02 * Math.PI, restDist: 34 }  // Mid-left (~ +184°)
+  ];
 
-  document.body.appendChild(nekoEl);
+  function createNeko(index, config, getMomma) {
+    const el = document.createElement("div");
+    el.className = "oneko-pet";
+    el.id = index === 0 ? "oneko" : `oneko-kitten-${index}`;
+    el.setAttribute("aria-hidden", "true");
 
+    let posX = 48 + (index === 0 ? 0 : Math.cos(config.restAngle) * config.restDist);
+    let posY = 48 + (index === 0 ? 0 : Math.sin(config.restAngle) * config.restDist);
+
+    let frameCount = Math.floor(Math.random() * 20);
+    let idleTime = 0;
+    let idleAnimation = null;
+    let idleAnimationFrame = 0;
+    let isMovingState = false;
+
+    el.style.left = `${posX - 16}px`;
+    el.style.top = `${posY - 16}px`;
+    el.style.zIndex = `${999990 - index}`;
+    el.style.backgroundImage = `url(${onekoGif})`;
+    el.style.transform = `scale(${config.scale})`;
+    el.style.transformOrigin = "center center";
+
+    document.body.appendChild(el);
+
+    function setSprite(name, frame) {
+      const set = spriteSets[name];
+      if (!set || set.length === 0) return;
+      const sprite = set[frame % set.length];
+      el.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
+    }
+
+    function resetIdleAnimation() {
+      idleAnimation = null;
+      idleAnimationFrame = 0;
+    }
+
+    function idle() {
+      idleTime += 1;
+
+      // Stagger scratch times: Momma scratches first, kittens follow in cute succession!
+      const scratchStart = 7 + index * 5;
+      if (idleAnimation === null) {
+        if (idleTime > scratchStart && idleTime < scratchStart + 4) {
+          idleAnimation = "scratchSelf";
+          idleAnimationFrame = 0;
+        } else if (idleTime > 40 + index * 8 && idleTime < 45 + index * 8) {
+          idleAnimation = "sleeping";
+          idleAnimationFrame = 0;
+        } else if (idleTime > 90 && Math.floor(Math.random() * 70) === 0) {
+          idleAnimation = "scratchSelf";
+          idleAnimationFrame = 0;
+        }
+      }
+
+      switch (idleAnimation) {
+        case "scratchSelf":
+          setSprite("scratchSelf", idleAnimationFrame);
+          if (idleAnimationFrame > 20) {
+            resetIdleAnimation();
+          }
+          break;
+        case "sleeping":
+          if (idleAnimationFrame < 10) {
+            setSprite("tired", 0);
+            break;
+          }
+          setSprite("sleeping", Math.floor(idleAnimationFrame / 4));
+          if (idleAnimationFrame > 192) {
+            resetIdleAnimation();
+          }
+          break;
+        case "scratchWallN":
+        case "scratchWallS":
+        case "scratchWallE":
+        case "scratchWallW":
+          setSprite(idleAnimation, idleAnimationFrame);
+          if (idleAnimationFrame > 12) {
+            resetIdleAnimation();
+          }
+          break;
+        default:
+          setSprite("idle", 0);
+          return;
+      }
+      idleAnimationFrame += 1;
+    }
+
+    function update() {
+      if (!el.isConnected) return;
+      frameCount += 1;
+
+      if (index === 0) {
+        // Momma Cat: runs directly toward cursor / touch location
+        const diffX = posX - mousePosX;
+        const diffY = posY - mousePosY;
+        const distance = Math.sqrt(diffX ** 2 + diffY ** 2);
+
+        if (distance < config.stopDist) {
+          isMovingState = false;
+          idle();
+          return;
+        }
+
+        isMovingState = true;
+        idleAnimation = null;
+        idleAnimationFrame = 0;
+
+        if (idleTime > 1) {
+          setSprite("alert", 0);
+          idleTime = Math.min(idleTime, 5);
+          idleTime -= 1;
+          return;
+        }
+
+        let direction = "";
+        direction += diffY / distance > 0.5 ? "N" : "";
+        direction += diffY / distance < -0.5 ? "S" : "";
+        direction += diffX / distance > 0.5 ? "W" : "";
+        direction += diffX / distance < -0.5 ? "E" : "";
+
+        setSprite(direction || "idle", frameCount);
+
+        posX -= (diffX / distance) * config.baseSpeed;
+        posY -= (diffY / distance) * config.baseSpeed;
+
+        posX = Math.min(Math.max(16, posX), window.innerWidth - 16);
+        posY = Math.min(Math.max(16, posY), window.innerHeight - 16);
+
+        el.style.left = `${posX - 16}px`;
+        el.style.top = `${posY - 16}px`;
+        return;
+      }
+
+      // Kitten behavior (index > 0):
+      const momma = getMomma();
+      const mommaPos = momma ? momma.getPos() : { x: mousePosX, y: mousePosY };
+      const mommaMoving = momma ? momma.isMoving() : false;
+
+      if (mommaMoving) {
+        // Playful random scurrying while following Momma (NOT in a line!)
+        // Dynamic roaming wander angle and distance
+        const wanderAngle = config.restAngle + Math.sin(frameCount * 0.13 + index * 1.8) * 1.8;
+        const wanderDist = config.restDist + Math.sin(frameCount * 0.09 + index * 2.7) * 20;
+        const targetX = mommaPos.x + Math.cos(wanderAngle) * wanderDist;
+        const targetY = mommaPos.y + Math.sin(wanderAngle) * wanderDist;
+
+        const diffX = posX - targetX;
+        const diffY = posY - targetY;
+        const distance = Math.sqrt(diffX ** 2 + diffY ** 2);
+
+        // Perpendicular scurry wave for natural zigzagging puppy/kitten running motion
+        const normX = diffX / (distance || 1);
+        const normY = diffY / (distance || 1);
+        const perpX = -normY;
+        const perpY = normX;
+        const sideWobble = Math.sin(frameCount * (0.2 + index * 0.07) + index * 2.3) * 0.72;
+
+        let moveX = -(normX + perpX * sideWobble);
+        let moveY = -(normY + perpY * sideWobble);
+        const moveLen = Math.sqrt(moveX * moveX + moveY * moveY) || 1;
+        moveX /= moveLen;
+        moveY /= moveLen;
+
+        // Playful burst speed (spurts of speed and scampering)
+        const burstSpeed = config.baseSpeed + Math.sin(frameCount * 0.26 + index * 1.4) * 2.6;
+
+        isMovingState = true;
+        idleAnimation = null;
+        idleAnimationFrame = 0;
+
+        let direction = "";
+        direction += moveY < -0.38 ? "N" : "";
+        direction += moveY > 0.38 ? "S" : "";
+        direction += moveX < -0.38 ? "W" : "";
+        direction += moveX > 0.38 ? "E" : "";
+
+        setSprite(direction || "idle", frameCount);
+
+        posX += moveX * burstSpeed;
+        posY += moveY * burstSpeed;
+
+        posX = Math.min(Math.max(16, posX), window.innerWidth - 16);
+        posY = Math.min(Math.max(16, posY), window.innerHeight - 16);
+
+        el.style.left = `${posX - 16}px`;
+        el.style.top = `${posY - 16}px`;
+      } else {
+        // Momma has stopped! Scurry into distinct cozy cuddle spot around Momma (never in a line!)
+        const targetX = mommaPos.x + Math.cos(config.restAngle) * config.restDist;
+        const targetY = mommaPos.y + Math.sin(config.restAngle) * config.restDist;
+
+        const diffX = posX - targetX;
+        const diffY = posY - targetY;
+        const distance = Math.sqrt(diffX ** 2 + diffY ** 2);
+
+        if (distance < config.stopDist) {
+          isMovingState = false;
+          idle();
+          return;
+        }
+
+        isMovingState = true;
+        idleAnimation = null;
+        idleAnimationFrame = 0;
+
+        if (idleTime > 1) {
+          setSprite("alert", 0);
+          idleTime = Math.min(idleTime, 5);
+          idleTime -= 1;
+          return;
+        }
+
+        let direction = "";
+        direction += diffY / distance > 0.4 ? "N" : "";
+        direction += diffY / distance < -0.4 ? "S" : "";
+        direction += diffX / distance > 0.4 ? "W" : "";
+        direction += diffX / distance < -0.4 ? "E" : "";
+
+        setSprite(direction || "idle", frameCount);
+
+        const approachSpeed = Math.min(config.baseSpeed, Math.max(3.0, distance * 0.3));
+        posX -= (diffX / distance) * approachSpeed;
+        posY -= (diffY / distance) * approachSpeed;
+
+        posX = Math.min(Math.max(16, posX), window.innerWidth - 16);
+        posY = Math.min(Math.max(16, posY), window.innerHeight - 16);
+
+        el.style.left = `${posX - 16}px`;
+        el.style.top = `${posY - 16}px`;
+      }
+    }
+
+    return {
+      getPos: () => ({ x: posX, y: posY }),
+      isMoving: () => isMovingState,
+      update: update
+    };
+  }
+
+  // Follow smoothly wherever user moves, clicks, or touches on screen
   function updateCursorPos(x, y) {
     mousePosX = x;
     mousePosY = y;
   }
 
-  // Follow smoothly wherever user moves, clicks, or touches on screen
   window.addEventListener("mousemove", (e) => updateCursorPos(e.clientX, e.clientY));
   window.addEventListener("pointerdown", (e) => updateCursorPos(e.clientX, e.clientY));
   window.addEventListener("touchstart", (e) => {
@@ -994,117 +1158,21 @@ function initOnekoCat() {
     }
   }, { passive: true });
 
-  function setSprite(name, frame) {
-    const set = spriteSets[name];
-    if (!set || set.length === 0) return;
-    const sprite = set[frame % set.length];
-    nekoEl.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
-  }
+  const cats = [];
 
-  function resetIdleAnimation() {
-    idleAnimation = null;
-    idleAnimationFrame = 0;
-  }
+  // Momma Cat: chases cursor directly
+  cats.push(createNeko(0, catConfigs[0], null));
 
-  function idle() {
-    idleTime += 1;
-
-    // After sitting for ~8 frames (~0.8s), cat immediately scratches itself!
-    if (idleAnimation === null) {
-      if (idleTime > 8 && idleTime < 12) {
-        idleAnimation = "scratchSelf";
-        idleAnimationFrame = 0;
-      } else if (idleTime > 40 && idleTime < 45) {
-        // After sitting for a bit more, cat yawns and goes to sleep
-        idleAnimation = "sleeping";
-        idleAnimationFrame = 0;
-      } else if (idleTime > 90 && Math.floor(Math.random() * 80) === 0) {
-        // Occasionally scratch again while idle
-        idleAnimation = "scratchSelf";
-        idleAnimationFrame = 0;
-      }
-    }
-
-    switch (idleAnimation) {
-      case "scratchSelf":
-        setSprite("scratchSelf", idleAnimationFrame);
-        if (idleAnimationFrame > 20) {
-          resetIdleAnimation();
-        }
-        break;
-      case "sleeping":
-        if (idleAnimationFrame < 10) {
-          setSprite("tired", 0);
-          break;
-        }
-        setSprite("sleeping", Math.floor(idleAnimationFrame / 4));
-        if (idleAnimationFrame > 192) {
-          resetIdleAnimation();
-        }
-        break;
-      case "scratchWallN":
-      case "scratchWallS":
-      case "scratchWallE":
-      case "scratchWallW":
-        setSprite(idleAnimation, idleAnimationFrame);
-        if (idleAnimationFrame > 12) {
-          resetIdleAnimation();
-        }
-        break;
-      default:
-        setSprite("idle", 0);
-        return;
-    }
-    idleAnimationFrame += 1;
-  }
-
-  function frame() {
-    frameCount += 1;
-    const diffX = nekoPosX - mousePosX;
-    const diffY = nekoPosY - mousePosY;
-    const distance = Math.sqrt(diffX ** 2 + diffY ** 2);
-
-    // When cat arrives close to cursor, stop and sit there acting like a cat
-    if (distance < nekoSpeed || distance < 24) {
-      idle();
-      return;
-    }
-
-    idleAnimation = null;
-    idleAnimationFrame = 0;
-
-    // Alert sprite before starting to run
-    if (idleTime > 1) {
-      setSprite("alert", 0);
-      idleTime = Math.min(idleTime, 6);
-      idleTime -= 1;
-      return;
-    }
-
-    let direction = "";
-    direction += diffY / distance > 0.5 ? "N" : "";
-    direction += diffY / distance < -0.5 ? "S" : "";
-    direction += diffX / distance > 0.5 ? "W" : "";
-    direction += diffX / distance < -0.5 ? "E" : "";
-
-    setSprite(direction || "idle", frameCount);
-
-    nekoPosX -= (diffX / distance) * nekoSpeed;
-    nekoPosY -= (diffY / distance) * nekoSpeed;
-
-    nekoPosX = Math.min(Math.max(16, nekoPosX), window.innerWidth - 16);
-    nekoPosY = Math.min(Math.max(16, nekoPosY), window.innerHeight - 16);
-
-    nekoEl.style.left = `${nekoPosX - 16}px`;
-    nekoEl.style.top = `${nekoPosY - 16}px`;
-  }
+  // 3 Kittens: playfully scamper in random zigzags & cuddle scattered around Momma
+  cats.push(createNeko(1, catConfigs[1], () => cats[0]));
+  cats.push(createNeko(2, catConfigs[2], () => cats[0]));
+  cats.push(createNeko(3, catConfigs[3], () => cats[0]));
 
   let lastTimestamp = 0;
   function onAnimationFrame(timestamp) {
-    if (!nekoEl.isConnected) return;
     if (timestamp - lastTimestamp > 100) {
       lastTimestamp = timestamp;
-      frame();
+      cats.forEach((cat) => cat.update());
     }
     window.requestAnimationFrame(onAnimationFrame);
   }
@@ -1118,7 +1186,6 @@ function initApp() {
   initScrollReveal();
   initSurpriseModal();
   initBrainCheckInteraction();
-  initGlobalClickBlast();
   initOnekoCat();
 
   const audioBtn = document.getElementById('btn-ambient-sound');
