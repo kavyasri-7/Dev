@@ -17,50 +17,122 @@
        ========================================================= -->
   <div id="surprise-modal" class="surprise-modal-overlay">
     <div class="modal-backdrop-blur"></div>
-    <div class="surprise-modal-card">
+    <div class="surprise-modal-card" id="surprise-modal-card">
 
-      <!-- Animated Cute Kitty Container -->
-      <div class="kitty-showcase">
-        <div class="kitty-glow-ring"></div>
-        <div class="kitty-avatar-box kitty-video-box" id="kitty-avatar-box">
-          <!-- Initial Friendly Smiling Cat (Paws on Cheeks) -->
-          <div id="hello-kitty-wrapper" class="kitty-display-wrapper">
-            <img src="assets/images/surprise_cat.jpg" alt="Cute smiling kitty with paws on cheeks" class="surprise-cat-img" />
-            <div id="kitty-badge" class="kitty-wave-badge">💖 Surprise!</div>
+      <!-- =========================================================
+           VIEW 1: INITIAL SURPRISE PROMPT (KITTY & DODGING NO)
+           ========================================================= -->
+      <div id="surprise-view-kitty" class="surprise-view-kitty">
+        <!-- Animated Cute Kitty Container -->
+        <div class="kitty-showcase">
+          <div class="kitty-glow-ring"></div>
+          <div class="kitty-avatar-box kitty-video-box" id="kitty-avatar-box">
+            <!-- Initial Friendly Smiling Cat (Paws on Cheeks) -->
+            <div id="hello-kitty-wrapper" class="kitty-display-wrapper">
+              <img src="assets/images/surprise_cat.jpg" alt="Cute smiling kitty with paws on cheeks"
+                class="surprise-cat-img" />
+              <div id="kitty-badge" class="kitty-wave-badge">💖 Surprise!</div>
+            </div>
+
+            <!-- Angry Reaction GIF (Active when user attempts to click No) -->
+            <div id="angry-kitty-wrapper" class="kitty-display-wrapper hidden">
+              <img id="angry-kitty-gif" src="assets/images/angry.gif" alt="Angry cat GIF" class="angry-kitty-img" />
+              <div id="angry-badge" class="kitty-wave-badge angry-badge">🍳 FRYING PAN!</div>
+            </div>
+          </div>
+          <div class="kitty-sparkles">✨ 🎉 ✨</div>
+        </div>
+
+        <!-- Surprise Content -->
+        <div class="surprise-modal-body">
+          <span class="surprise-badge-pill">🎂 Special Delivery For You!</span>
+          <h2 class="surprise-modal-title">Here is your surprise! 🎁✨</h2>
+          <p class="surprise-modal-subtitle">Do you want to see it? 🥺💖</p>
+
+          <!-- Playful Dodge Notification Alert -->
+          <div id="no-dodge-alert" class="no-dodge-alert">
+            <span class="dodge-icon">🐱</span>
+            <span id="dodge-text" class="dodge-text">You don't have a "No" option! Just click Yes! 😉</span>
           </div>
 
-          <!-- Angry Reaction GIF (Active when user attempts to click No) -->
-          <div id="angry-kitty-wrapper" class="kitty-display-wrapper hidden">
-            <img id="angry-kitty-gif" src="assets/images/angry.gif" alt="Angry cat GIF" class="angry-kitty-img" />
-            <div id="angry-badge" class="kitty-wave-badge angry-badge">🍳 FRYING PAN!</div>
+          <!-- Yes & Dodging No Buttons -->
+          <div class="surprise-action-buttons" id="action-buttons-wrapper">
+            <button id="btn-surprise-yes" class="btn-surprise-yes" onclick="acceptSurprise(event)">
+              <span class="btn-sparkle">💖</span>
+              <span class="btn-text">Yes</span>
+            </button>
+
+            <button id="btn-surprise-no" class="btn-surprise-no" type="button">
+              <span class="btn-sparkle" id="btn-no-icon">🙈</span>
+              <span id="btn-no-text" class="btn-text">No [Dont Dare to click]</span>
+            </button>
           </div>
         </div>
-        <div class="kitty-sparkles">✨ 🎉 ✨</div>
       </div>
 
-      <!-- Surprise Content -->
-      <div class="surprise-modal-body">
-        <span class="surprise-badge-pill">🎂 Special Delivery For You!</span>
-        <h2 class="surprise-modal-title">Here is your surprise! 🎁✨</h2>
-        <p class="surprise-modal-subtitle">Do you want to see it? 🥺💖</p>
+      <!-- =========================================================
+           VIEW 2: HILARIOUS BRAIN COMIC REVEAL (TRIGGERED ON YES)
+           ========================================================= -->
+      <div id="surprise-view-brain" class="surprise-view-brain hidden">
+        <!-- Stage 1: Setup Meme (Doctor checking for brain) & Question -->
+        <div id="brain-stage-1" class="brain-stage brain-stage-setup">
+          <div class="brain-card-header">
+            <span class="brain-badge-pill">🧠 Quick Brain Check!</span>
+            <h3 class="brain-stage-title">Do you have a brain? 🤔</h3>
+            <p class="brain-stage-subtitle">Be completely honest with yourself! 🧐</p>
+          </div>
 
-        <!-- Playful Dodge Notification Alert -->
-        <div id="no-dodge-alert" class="no-dodge-alert">
-          <span class="dodge-icon">🐱</span>
-          <span id="dodge-text" class="dodge-text">You don't have a "No" option! Just click Yes! 😉</span>
+          <div class="brain-comic-frame">
+            <img src="assets/images/brain search.jpg" alt="Doctor inspecting stickman's head with magnifying glass"
+              class="brain-comic-img" />
+          </div>
+
+          <!-- Lying alert when user tries to click Yes -->
+          <div id="brain-lying-alert" class="brain-dodge-alert">
+            <span class="dodge-icon">🤥</span>
+            <span id="brain-lying-text" class="dodge-text">No! You are lying, you don't have a brain! 😂</span>
+          </div>
+
+          <!-- Yes & No Pastel Action Buttons (Matching style of initial Yes button) -->
+          <div class="brain-action-buttons" id="brain-action-buttons">
+            <button id="btn-brain-yes" class="btn-pastel-choice btn-brain-yes" type="button"
+              onpointerenter="dodgeBrainYesButton(event)" onpointerdown="dodgeBrainYesButton(event)"
+              ontouchstart="dodgeBrainYesButton(event)" onclick="dodgeBrainYesButton(event)">
+              <span class="btn-sparkle" id="btn-brain-yes-icon">💖</span>
+              <span id="btn-brain-yes-text" class="btn-text">Yes</span>
+            </button>
+
+            <button id="btn-brain-no" class="btn-pastel-choice btn-brain-no" type="button"
+              onclick="confirmNoBrain(event)">
+              <span class="btn-sparkle" id="btn-brain-no-icon">🙈</span>
+              <span id="btn-brain-no-text" class="btn-text">No</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Yes & Dodging No Buttons (Identical look initially) -->
-        <div class="surprise-action-buttons" id="action-buttons-wrapper">
-          <button id="btn-surprise-yes" class="btn-surprise-yes" onclick="acceptSurprise(event)">
-            <span class="btn-sparkle">💖</span>
-            <span class="btn-text">Yes</span>
-          </button>
+        <!-- Stage 2: Punchline Meme (I know you don't have this so take this and read below) -->
+        <div id="brain-stage-2" class="brain-stage brain-stage-punchline hidden">
+          <div class="brain-card-header">
+            <span class="brain-badge-pill punchline-pill">🎁 Gift For Brother! 🧠✨</span>
+            <h3 class="brain-stage-title punchline-title">Take it, it's yours! 🤣</h3>
+          </div>
 
-          <button id="btn-surprise-no" class="btn-surprise-no" type="button">
-            <span class="btn-sparkle" id="btn-no-icon">🙈</span>
-            <span id="btn-no-text" class="btn-text">No [Dont Dare to click]</span>
-          </button>
+          <div class="brain-comic-frame punchline-frame">
+            <img src="assets/images/brain_give.jpg"
+              alt="Stick figure offering brain saying I know you don't have this so take this and read below"
+              class="brain-comic-img" />
+          </div>
+
+          <div class="brain-punchline-quote">
+            <p>"I know you don't have this, so take this and read below!" 🧠📜👇</p>
+          </div>
+
+          <div class="brain-stage-footer">
+            <button id="btn-accept-brain" class="btn-accept-brain" type="button">
+              <span class="btn-brain-icon">🧠</span>
+              <span class="btn-text">Take Brain ! 🚀</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -177,6 +249,7 @@
             <div class="card-reactions">
               <button class="pill-reaction" onclick="spawnReaction('🎀', event)">🎀 Pretty</button>
               <button class="pill-reaction" onclick="spawnReaction('🤣', event)">🤣 Clown</button>
+              <button class="pill-reaction" onclick="spawnReaction('🧠', event)">🧠 0 Braincells</button>
             </div>
           </div>
         </div>
