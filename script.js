@@ -1196,6 +1196,18 @@ function initApp() {
   }
 }
 
+// Horizontal Memory Reel Navigation
+window.scrollReel = function(direction) {
+  const container = document.getElementById('reel-scroll-container');
+  if (container) {
+    container.scrollBy({
+      left: direction * 300,
+      behavior: 'smooth'
+    });
+    audio.playBubblePop();
+  }
+};
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initApp);
 } else {

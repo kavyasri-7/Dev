@@ -145,6 +145,83 @@
   <div class="ambient-glow glow-3"></div>
   <canvas id="peaceful-canvas"></canvas>
 
+  <!-- Ambient Continuously Moving Background Photo Stream (Transparent & Floating) -->
+  <div class="ambient-bg-gallery" aria-hidden="true">
+    <!-- Left Floating Stream (Seamless Infinite Drift) -->
+    <div class="bg-stream-lane lane-left">
+      <div class="bg-stream-track track-up-1">
+        <div class="floating-bg-card" title="Celebration ✨">
+          <img src="assets/images/bg_champagne.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Childhood Days 🎪">
+          <img src="assets/images/bg_childhood_slide.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Main Character 😎">
+          <img src="assets/images/main_bro_pic.jpg?v=2" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Match Day Smackdown 🏏">
+          <img src="assets/images/fight_match_pic.jpg?v=5" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Chief Sloth 😴">
+          <img src="assets/images/lazy_bro.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <!-- Duplicate set for seamless looping -->
+        <div class="floating-bg-card" title="Celebration ✨">
+          <img src="assets/images/bg_champagne.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Childhood Days 🎪">
+          <img src="assets/images/bg_childhood_slide.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Main Character 😎">
+          <img src="assets/images/main_bro_pic.jpg?v=2" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Match Day Smackdown 🏏">
+          <img src="assets/images/fight_match_pic.jpg?v=5" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Chief Sloth 😴">
+          <img src="assets/images/lazy_bro.jpg" alt="Memory" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Floating Stream (Seamless Infinite Drift) -->
+    <div class="bg-stream-lane lane-right">
+      <div class="bg-stream-track track-up-2">
+        <div class="floating-bg-card" title="Graduation 🎓">
+          <img src="assets/images/bg_grad_car.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Gym Flex 💪">
+          <img src="assets/images/bg_bicep.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Cakes & Mood Swings 🎂">
+          <img src="assets/images/cakes_and_moodswings.jpg?v=2" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Nature Trails 🌲">
+          <img src="assets/images/walk_woods.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Favourite Cakes 🍰">
+          <img src="assets/images/cakes_plate.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <!-- Duplicate set for seamless looping -->
+        <div class="floating-bg-card" title="Graduation 🎓">
+          <img src="assets/images/bg_grad_car.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Gym Flex 💪">
+          <img src="assets/images/bg_bicep.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Cakes & Mood Swings 🎂">
+          <img src="assets/images/cakes_and_moodswings.jpg?v=2" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Nature Trails 🌲">
+          <img src="assets/images/walk_woods.jpg" alt="Memory" loading="lazy" />
+        </div>
+        <div class="floating-bg-card" title="Favourite Cakes 🍰">
+          <img src="assets/images/cakes_plate.jpg" alt="Memory" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Top Minimal Audio Toggle -->
   <header class="top-nav">
     <div class="nav-brand">🎂</div>
@@ -184,14 +261,9 @@
         <div class="quote-side">
           <div class="quote-card">
             <span class="quote-tag">01 / The "Main Character" Syndrome</span>
-            <blockquote class="comedy-quote">
-              "Bro put on $2 sunglasses in a cab and immediately thought Netflix was filming his biographical
-              documentary."
-            </blockquote>
-            <div class="quote-divider"></div>
             <p class="heartfelt-note">
-              No matter how cool and untouchable you pretend to be in front of everyone, I still remember you crying
-              over the TV remote. You'll always be my favorite bodyguard. 🕶️🤍
+              At any time, and thank you for making me laugh harder with your bad jokes and supporting me sometimes (I
+              said sometimes, ok!). 🕶️🤍
             </p>
             <div class="card-reactions">
               <button class="pill-reaction" onclick="spawnReaction('😎', event)">😎 Too Cool</button>
@@ -204,8 +276,8 @@
         <div class="image-side">
           <div class="image-frame" onclick="spawnReaction('✨', event)">
             <div class="image-wrapper">
-              <img src="assets/images/swag_bro.jpg" alt="Brother wearing sunglasses in car" class="memory-img"
-                loading="lazy" />
+              <img src="assets/images/main_bro_pic.jpg?v=2" alt="Brother wearing sunglasses in car" class="memory-img"
+                loading="eager" />
             </div>
             <div class="image-tagline">
               <span class="tag-number">#01</span>
@@ -221,14 +293,14 @@
       <div class="memory-row img-left-quote-right scroll-reveal">
         <!-- Image 2 (Left) -->
         <div class="image-side">
-          <div class="image-frame" onclick="spawnReaction('🎀', event)">
+          <div class="image-frame" onclick="spawnReaction('🎂', event)">
             <div class="image-wrapper">
-              <img src="assets/images/goofy_filter.jpg" alt="Brother with goofy filter, glasses, buck teeth and bows"
-                class="memory-img" loading="lazy" />
+              <img src="assets/images/cakes_and_moodswings.jpg?v=2" alt="Sister with anger symbol and brother"
+                class="memory-img" loading="eager" />
             </div>
             <div class="image-tagline">
               <span class="tag-number">#02</span>
-              <span class="tag-title">True Identity Unlocked</span>
+              <span class="tag-title">Mood Swings & Surprise Cakes</span>
             </div>
           </div>
         </div>
@@ -236,20 +308,24 @@
         <!-- Quote (Right) -->
         <div class="quote-side">
           <div class="quote-card">
-            <span class="quote-tag">02 / The Real You</span>
-            <blockquote class="comedy-quote">
-              "Scientists spent decades searching for the missing evolutionary link, and I found it right on your
-              Snapchat story."
-            </blockquote>
-            <div class="quote-divider"></div>
-            <p class="heartfelt-note">
-              Blue bows, giant nerdy glasses, and buck teeth — thanks for always being the funniest human being alive.
-              Life would be terribly boring without your chaotic clown energy making me laugh. 🤓🎀
-            </p>
+            <span class="quote-tag">02 / Never Forgets</span>
+            <div class="quote-card-content-with-thumb">
+              <p class="heartfelt-note">
+                Thank you for bearing with all my childish things, my anger, my mood swings, and everything else 😂❤️.
+                And
+                a special thanks for always bringing me my favourite things whenever you go out, without me even asking
+                —
+                especially cakes! 🎂😂 You may annoy me a lot, but these little things show how much you care.
+              </p>
+              <div class="mini-cake-polaroid" onclick="spawnReaction('🍰', event)" title="My Favourite Cakes!">
+                <img src="assets/images/cakes_plate.jpg" alt="Favourite cakes" />
+                <span class="mini-caption">Favorite Cakes 🍰</span>
+              </div>
+            </div>
             <div class="card-reactions">
-              <button class="pill-reaction" onclick="spawnReaction('🎀', event)">🎀 Pretty</button>
-              <button class="pill-reaction" onclick="spawnReaction('🤣', event)">🤣 Clown</button>
-              <button class="pill-reaction" onclick="spawnReaction('🧠', event)">🧠 0 Braincells</button>
+              <button class="pill-reaction" onclick="spawnReaction('🎂', event)">🎂 Cakes!</button>
+              <button class="pill-reaction" onclick="spawnReaction('😡', event)">😡 Mood Swings</button>
+              <button class="pill-reaction" onclick="spawnReaction('❤️', event)">❤️</button>
             </div>
           </div>
         </div>
@@ -263,32 +339,35 @@
         <div class="quote-side">
           <div class="quote-card">
             <span class="quote-tag">03 / The Daily Smackdown</span>
-            <blockquote class="comedy-quote">
-              "WWE refused to broadcast our fights because arguing over the last slice of pizza was deemed too brutal
-              for national television."
-            </blockquote>
-            <div class="quote-divider"></div>
-            <p class="heartfelt-note">
-              We fight 99% of the time over the dumbest things on earth, but for that 1% when it actually matters, there
-              is nobody in this universe I trust more to have my back. 🥊🫂
-            </p>
+            <div class="quote-card-content-with-thumb">
+              <p class="heartfelt-note">
+                The Day We fought over the RCB vs CSK match that day. Even though you won our fight, RCB won the match
+                that day 😂🏏. Thank you for being my personal ATM! 💸💳
+              </p>
+              <div class="mini-cake-polaroid" onclick="spawnReaction('💸', event)" title="Personal ATM!">
+                <img src="assets/images/personal_atm.jpg" alt="Personal ATM" />
+                <span class="mini-caption">Personal ATM 💸</span>
+              </div>
+            </div>
             <div class="card-reactions">
+              <button class="pill-reaction" onclick="spawnReaction('🏏', event)">🏏 RCB</button>
+              <button class="pill-reaction" onclick="spawnReaction('🏆', event)">🏆 Match Winner</button>
+              <button class="pill-reaction" onclick="spawnReaction('💸', event)">💸 Free Money</button>
               <button class="pill-reaction" onclick="spawnReaction('🥊', event)">🥊 Champ</button>
-              <button class="pill-reaction" onclick="spawnReaction('🍕', event)">🍕 Pizza Thief</button>
             </div>
           </div>
         </div>
 
         <!-- Image 3 (Right) -->
         <div class="image-side">
-          <div class="image-frame horizontal-frame" onclick="spawnReaction('🥊', event)">
-            <div class="image-wrapper horizontal">
-              <img src="assets/images/sibling_fight.jpg" alt="Brother and sister play fighting and wrestling playfully"
-                class="memory-img" loading="lazy" />
+          <div class="image-frame" onclick="spawnReaction('🥊', event)">
+            <div class="image-wrapper">
+              <img src="assets/images/fight_match_pic.jpg?v=5" alt="Brother and sister fight over RCB vs CSK match"
+                class="memory-img" loading="eager" />
             </div>
             <div class="image-tagline">
               <span class="tag-number">#03</span>
-              <span class="tag-title">5:00 PM Wrestling Match</span>
+              <span class="tag-title">RCB vs CSK Match Day</span>
             </div>
           </div>
         </div>
@@ -316,14 +395,9 @@
         <div class="quote-side">
           <div class="quote-card">
             <span class="quote-tag">04 / Beside You Always</span>
-            <blockquote class="comedy-quote">
-              "Walking through the misty forest looking for who asked for your life advice... GPS says '0 signals found,
-              turn back bro!' 🌲"
-            </blockquote>
-            <div class="quote-divider"></div>
             <p class="heartfelt-note">
-              From our tiny childhood steps to exploring the world side by side, thank you for walking beside me,
-              guiding my steps, and always making sure I never lose my way. 🌲✨
+              Through every trail, fog, and wrong turn—glad you're the one leading the way. Even if we spend half our
+              lives fighting for the TV remote, there’s no one else I’d rather explore with. 🌲🤍
             </p>
             <div class="card-reactions">
               <button class="pill-reaction" onclick="spawnReaction('🌲', event)">🌲 Explorer</button>
@@ -340,38 +414,146 @@
         <!-- Quote (Left) -->
         <div class="quote-side">
           <div class="quote-card">
-            <span class="quote-tag">05 / Natural Habitat</span>
-            <blockquote class="comedy-quote">
-              "Daily Routine: 12 hours sleeping, 6 hours doomscrolling reels, 5 hours yelling 'WHERE IS MY SHIRT?!', and
-              1 hour ignoring my texts."
-            </blockquote>
-            <div class="quote-divider"></div>
-            <p class="heartfelt-note">
-              Even on your laziest days wrapped in blankets like a burrito, you bring so much warmth, comfort, and peace
-              to our home. Thank you for just being you. 🛌🤍
-            </p>
+            <span class="quote-tag">05 / Secret Vault & Best Partner</span>
+            <div class="quote-card-content-with-thumb">
+              <p class="heartfelt-note">
+                Thank you for never saying no to my random plans with friends, handling Appa like an absolute pro, and
+                being the vault for every single secret. 🤫🤍
+              </p>
+              <div class="mini-cake-polaroid" onclick="spawnReaction('🤫', event)" title="Top Secret!">
+                <img src="assets/images/blanket_secret.jpg" alt="Secret keeper in blanket" />
+                <span class="mini-caption">Top Secret 🤫</span>
+              </div>
+            </div>
             <div class="card-reactions">
-              <button class="pill-reaction" onclick="spawnReaction('😴', event)">😴 Sloth</button>
-              <button class="pill-reaction" onclick="spawnReaction('📱', event)">📱 Reels King</button>
+              <button class="pill-reaction" onclick="spawnReaction('🤫', event)">🤫 Secret Vault</button>
+              <button class="pill-reaction" onclick="spawnReaction('🤝', event)">🤝 In It Together</button>
+              <button class="pill-reaction" onclick="spawnReaction('❤️', event)">❤️ </button>
             </div>
           </div>
         </div>
 
         <!-- Image 5 (Right) -->
         <div class="image-side">
-          <div class="image-frame" onclick="spawnReaction('😴', event)">
+          <div class="image-frame" onclick="spawnReaction('🎪', event)">
             <div class="image-wrapper">
-              <img src="assets/images/lazy_bro.jpg" alt="Brother relaxing in bed with phone" class="memory-img"
-                loading="lazy" />
+              <img src="assets/images/childhood_slide.jpg?v=2" alt="Childhood photo on elephant slide"
+                class="memory-img" loading="eager" />
             </div>
             <div class="image-tagline">
               <span class="tag-number">#05</span>
-              <span class="tag-title">Chief Sloth Officer</span>
+              <span class="tag-title">Childhood to Forever</span>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- =========================================================
+           ROW 6: IMAGE 6 ON LEFT | QUOTE ON RIGHT
+           ========================================================= -->
+      <div class="memory-row img-left-quote-right scroll-reveal">
+        <!-- Image 6 (Left) -->
+        <div class="image-side">
+          <div class="image-frame" onclick="spawnReaction('🎓', event)">
+            <div class="image-wrapper">
+              <img src="assets/images/graduation_celebration.jpg?v=2" alt="Graduation celebration with champagne"
+                class="memory-img" loading="eager" />
+            </div>
+            <div class="image-tagline">
+              <span class="tag-number">#06</span>
+              <span class="tag-title">Proud Graduate</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote (Right) -->
+        <div class="quote-side">
+          <div class="quote-card">
+            <span class="quote-tag">06 / Miles Apart, Always Close</span>
+            <p class="heartfelt-note">
+              I am glad that you graduated and I never imagined you’d end up so far away in another country. The house
+              is way too quiet without you, and I’ve missed you every single day since you left. 🎓✈️🤍
+            </p>
+            <div class="card-reactions">
+              <button class="pill-reaction" onclick="spawnReaction('🎓', event)">🎓 Proud Sister</button>
+              <button class="pill-reaction" onclick="spawnReaction('🥂', event)">🥂 Cheers</button>
+              <button class="pill-reaction" onclick="spawnReaction('🤍', event)">🤍 Miss You</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- HORIZONTAL PHOTO REEL (AUTOMATIC SMOOTH SLIDING MARQUEE) -->
+    <section class="reel-section scroll-reveal">
+      <div class="reel-header">
+        <div class="reel-badge">
+          <span>🧸 Sweet Little Moments</span>
+        </div>
+        <h2 class="reel-title">Endless Memories & Love 🌸✨</h2>
+      </div>
+
+      <div class="auto-reel-marquee-wrapper">
+        <div class="auto-reel-track">
+          <!-- Group 1 -->
+          <div class="auto-reel-group">
+            <div class="auto-reel-card" onclick="spawnReaction('🙈', event)">
+              <img src="assets/images/reel_blanket_duck.jpg" alt="Cozy Memory" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('🌹', event)">
+              <img src="assets/images/reel_roses_boy.jpg" alt="Roses Memory" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('🫶', event)">
+              <img src="assets/images/reel_heart_baby.jpg" alt="Heart Memory" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('😤', event)">
+              <img src="assets/images/reel_pout_cart.jpg" alt="Shopping Cart Drama" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('💐', event)">
+              <img src="assets/images/reel_flower_girl.jpg" alt="Flower Bouquet" loading="lazy" />
+            </div>
+          </div>
+
+          <!-- Group 2 -->
+          <div class="auto-reel-group" aria-hidden="true">
+            <div class="auto-reel-card" onclick="spawnReaction('🙈', event)">
+              <img src="assets/images/reel_blanket_duck.jpg" alt="Cozy Memory" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('🌹', event)">
+              <img src="assets/images/reel_roses_boy.jpg" alt="Roses Memory" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('🫶', event)">
+              <img src="assets/images/reel_heart_baby.jpg" alt="Heart Memory" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('😤', event)">
+              <img src="assets/images/reel_pout_cart.jpg" alt="Shopping Cart Drama" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('💐', event)">
+              <img src="assets/images/reel_flower_girl.jpg" alt="Flower Bouquet" loading="lazy" />
+            </div>
+          </div>
+
+          <!-- Group 3 -->
+          <div class="auto-reel-group" aria-hidden="true">
+            <div class="auto-reel-card" onclick="spawnReaction('🙈', event)">
+              <img src="assets/images/reel_blanket_duck.jpg" alt="Cozy Memory" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('🌹', event)">
+              <img src="assets/images/reel_roses_boy.jpg" alt="Roses Memory" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('🫶', event)">
+              <img src="assets/images/reel_heart_baby.jpg" alt="Heart Memory" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('😤', event)">
+              <img src="assets/images/reel_pout_cart.jpg" alt="Shopping Cart Drama" loading="lazy" />
+            </div>
+            <div class="auto-reel-card" onclick="spawnReaction('💐', event)">
+              <img src="assets/images/reel_flower_girl.jpg" alt="Flower Bouquet" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- PEACEFUL CLOSING SURPRISE LETTER -->
@@ -382,7 +564,7 @@
         <p class="letter-text">
           Wishing you the happiest birthday filled with endless laughter, boundless health, great success,
           and all the happiness you deserve in life. Thank you for always protecting me, making me laugh,
-          and being the absolute best brother anyone could ask for.
+          and being the absolute craziest brother anyone could ask for.
         </p>
         <p class="letter-signoff">
           Have the most wonderful day! (And don't forget to treat me!) 🎂🤍✨
@@ -397,7 +579,7 @@
 
     <!-- MINIMAL CLEAN FOOTER -->
     <footer class="minimal-footer">
-      <p>Made with love for the best brother on his special day 🎂✨</p>
+      <p>Made with love for the my craziest brother on his special day 🎂✨</p>
     </footer>
   </main>
 
